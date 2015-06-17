@@ -1,7 +1,9 @@
 {
   "name": "fbZoho",
   "version": "0.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "body-parser": "^1.13.1"
+  },
   "scripts": {
     "test": "gulp test"
   },

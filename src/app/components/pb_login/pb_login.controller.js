@@ -1,24 +1,37 @@
 'use strict';
 
 class PbLoginCtrl {
-  constructor ($scope, PB_API) {
+  constructor($scope, $state, PB_API, PB_Session) {
     $scope.credentials = {
       phone: '',
       password: ''
     };
 
     $scope.login = () => {
-      console.log(PB_API);
+      let requestData = {
+        "sessionId": PB_Session.getSessionId(),
+        "login": $scope.credentials.phone,
+        "password": $scope.credentials.password
+      };
+      PB_API.login(requestData).success((response)=> {
+        $state.go('selectMobNum', {mobAccs: response});
+      });
     };
 
     $scope.startSession = () => {
-      PB_API.createSession().success((response)=>{
-
+      PB_API.createSession().success((response)=> {
+        PB_Session.setSessionId(response.id);
+        PB_Session.setExpiresIn(response.expiresIn);
       });
     };
   }
 }
 
-PbLoginCtrl.$inject = ['$scope', 'PB_API'];
+PbLoginCtrl.$inject = [
+  '$scope'
+  , '$state'
+  , 'PB_API'
+  , 'PB_Session'
+];
 
 export default PbLoginCtrl;

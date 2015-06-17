@@ -1,0 +1,8 @@
+<form ng-submit="selectMobNum()">
+  <div class="radio" ng-repeat=" mobnum in mobNums">
+    <label><input type="radio" name="optradio"
+                  ng-model="bobNumId"
+                  value="{{mobnum.id}}">{{mobnum.number}}</label>
+  </div>
+  <button class="btn">Select</button>
+</form>
