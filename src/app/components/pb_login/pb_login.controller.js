@@ -1,10 +1,15 @@
 'use strict';
 
 class PbLoginCtrl {
-  constructor($scope, $state, PB_API, PB_Session) {
+  constructor($scope, $state, PB_API, PB_Session, sessionInitData) {
     $scope.credentials = {
       phone: '',
       password: ''
+    };
+
+    this.init = () => {
+      PB_Session.setSessionId(sessionInitData.data.id);
+      PB_Session.setExpiresIn(sessionInitData.data.expiresIn);
     };
 
     $scope.login = () => {
@@ -18,12 +23,7 @@ class PbLoginCtrl {
       });
     };
 
-    $scope.startSession = () => {
-      PB_API.createSession().success((response)=> {
-        PB_Session.setSessionId(response.id);
-        PB_Session.setExpiresIn(response.expiresIn);
-      });
-    };
+    this.init();
   }
 }
 
@@ -32,6 +32,7 @@ PbLoginCtrl.$inject = [
   , '$state'
   , 'PB_API'
   , 'PB_Session'
+  , 'sessionInitData'
 ];
 
 export default PbLoginCtrl;

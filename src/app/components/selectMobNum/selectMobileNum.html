@@ -1,8 +1,12 @@
-<form ng-submit="selectMobNum()">
-  <div class="radio" ng-repeat=" mobnum in mobNums">
-    <label><input type="radio" name="optradio"
-                  ng-model="bobNumId"
-                  value="{{mobnum.id}}">{{mobnum.number}}</label>
+<h1>Select mobile number to receive SMS code</h1>
+<form name="form" ng-submit="selectMobNum()" novalidate>
+  <div class="radio" ng-repeat="mobNumber in mobNums">
+    <label>
+      <input type="radio" name="optradio"
+             ng-model="mobNum.id"
+             ng-required="!mobNum.id"
+             value="{{mobNumber.id}}">{{mobNumber.number}}
+    </label>
   </div>
-  <button class="btn">Select</button>
+  <button class="btn btn-primary" ng-disabled="form.$invalid">Select</button>
 </form>

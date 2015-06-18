@@ -1,28 +1,26 @@
 'use strict';
 
-class SelectMobNumCtrl {
+class SendSMScode {
   constructor ($scope, $state, $stateParams, PB_API, PB_Session, toaster) {
-    $scope.mobNums = $stateParams.mobAccs.message;
-    $scope.mobNum = {
-      id: null
-    };
+    $scope.smsCode = '';
 
-    $scope.selectMobNum = () => {
+    $scope.sendSMScode = () => {
       let requestData = {
         "sessionId": PB_Session.getSessionId(),
-        "monNumId": $scope.mobNum.id
+        "smsCode": $scope.smsCode
       };
-      PB_API.requestSMSCode(requestData).success((response)=>{
+      PB_API.sendSMSCode(requestData).success((response)=>{
+        $state.go('statements_overview');
+        console.log('statements_overview');
         toaster.pop('success', "Success", response.message);
-        $state.go('sendSMScode');
         //console.log(response);
       });
     };
-
   }
+
 }
 
-SelectMobNumCtrl.$inject = [
+SendSMScode.$inject = [
   '$scope'
   , '$state'
   , '$stateParams'
@@ -31,4 +29,4 @@ SelectMobNumCtrl.$inject = [
   , 'toaster'
 ];
 
-export default SelectMobNumCtrl;
+export default SendSMScode;

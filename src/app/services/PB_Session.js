@@ -2,8 +2,8 @@
 
 class PB_Session {
   constructor() {
-    this.expiresIn = null;
-    this.sessionId = null;
+    this.expiresIn = localStorage['expiresIn'];
+    this.sessionId = localStorage['sessionId'];
 
     this.setExpiresIn = (ts) => {
       this.expiresIn = ts;
@@ -15,6 +15,7 @@ class PB_Session {
 
     this.setSessionId = (ssid) => {
       this.sessionId = ssid;
+      localStorage['sessionId'] = ssid;
     };
 
     this.getSessionId = () => {

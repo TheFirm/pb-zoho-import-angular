@@ -1,0 +1,5 @@
+<h1>Send code came to you via SMS</h1>
+<form name="form" ng-submit="sendSMScode()" novalidate>
+  <input type="text" required ng-model="smsCode"/>
+  <button class="btn btn-primary" ng-disabled="form.$invalid">Send</button>
+</form>

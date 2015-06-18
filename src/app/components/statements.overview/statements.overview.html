@@ -1,0 +1,38 @@
+<h1>Statements</h1>
+<form name="form" novalidate ng-submit="getStatements()">
+  <div class="row">
+    <label>From date
+      <input ng-model="date_range.start" required type="text"/>
+    </label>
+    <label>To date
+      <input ng-model="date_range.end" required type="text"/>
+    </label>
+  </div>
+  <button type="submit" ng-disabled="form.$invalid">Get statements</button>
+</form>
+
+
+<div class="row">
+  <h2 ng-if="!statements.length">No statements yet. Choose period.</h2>
+  <table class="table table-striped" ng-if="statements.length">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Purpose</th>
+      <th>Date</th>
+      <th>Ref</th>
+      <th>Amount</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="s in statements">
+      <th scope="row" ng-bind="$index"></th>
+      <td ng-bind="s.purpose"></td>
+      <td ng-bind="s.info['@postdate']"></td>
+      <td ng-bind="s.info['@ref']"></td>
+      <td ng-bind="s.amount['@amt'] + ' ' + s.amount['@ccy']"></td>
+    </tr>
+
+    </tbody>
+  </table>
+</div>
