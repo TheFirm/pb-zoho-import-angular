@@ -16,7 +16,15 @@ class StatementsOverview {
         ,"end_date": $scope.date_range.end
       };
       PB_API.getStatements(requestData).success((response)=>{
-        $scope.statements = response;
+        $scope.statements = response.map(function (statement) {
+          return {
+            purpose: statement.purpose
+            ,formattedPostDate: moment(statement.info['@postdate'], ["YYYYMMDDTHH:mm:ss", moment.ISO_8601]).format('DD.MM.YYYY hh:mm:ss')
+            ,ref: statement.info['@ref']
+            ,amount: statement.amount['@amt'] + ' ' + statement.amount['@ccy']
+            ,isPositive: (+statement.amount['@amt']) > 0
+          }
+        });
       });
     };
   }
